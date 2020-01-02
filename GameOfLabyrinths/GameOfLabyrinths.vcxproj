@@ -139,6 +139,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BFS.cpp" />
+    <ClCompile Include="Composition.cpp" />
     <ClCompile Include="DFS.cpp" />
     <ClCompile Include="Empty.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -148,6 +149,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Pathfinding.cpp" />
+    <ClCompile Include="Playerwall.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Position.cpp" />
     <ClCompile Include="Sorceress.cpp" />
@@ -155,6 +157,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BFS.h" />
+    <ClInclude Include="Composition.h" />
     <ClInclude Include="DFS.h" />
     <ClInclude Include="Empty.h" />
     <ClInclude Include="Entity.h" />
@@ -163,6 +166,7 @@
     <ClInclude Include="Mage.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Pathfinding.h" />
+    <ClInclude Include="Playerwall.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="Position.h" />
     <ClInclude Include="Sorceress.h" />

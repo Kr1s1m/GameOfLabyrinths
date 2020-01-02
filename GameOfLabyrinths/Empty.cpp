@@ -14,8 +14,3 @@ bool Empty::canMove() const
 {
 	return false;
 }
-
-void Empty::move()
-{
-	
-}

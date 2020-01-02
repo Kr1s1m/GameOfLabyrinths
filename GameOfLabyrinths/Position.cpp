@@ -24,3 +24,18 @@ Position Position::operator+(const Position& other) const
 {
 	return { x + other.getX(), y + other.getY() };
 }
+
+bool Position::outOfBounds(int height, int width) const
+{
+	return (x >= height || x < 0 || y >= height || y < 0);
+}
+
+long Position::distanceFromOrigin() const
+{
+	return x * x + y * y;
+}
+
+bool Position::operator<(const Position& other) const
+{
+	return distanceFromOrigin() < other.distanceFromOrigin();
+}

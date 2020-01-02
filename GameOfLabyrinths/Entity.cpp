@@ -1,4 +1,5 @@
 #include "Entity.h"
+#include "Labyrinth.h"
 
 Entity::Entity(Position _position) :  position(_position)
 {
@@ -37,5 +38,9 @@ void Entity::swapWith(Entity* other)
 {
 	
 	
+}
+
+void Entity::move(Labyrinth& labyrinth)
+{
 }
 

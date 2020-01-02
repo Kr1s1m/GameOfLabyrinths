@@ -10,13 +10,15 @@ class Labyrinth
 private:
 
 
-	vector<vector<Entity*>> entities;
+	vector< vector < Entity* > > entities;
 	
 	
 	int monsterCount;
 
 
+	Entity* createEntity(char, Position);
 	void fillEntities(vector<vector<char>>&);
+	
 
 public:
 	
@@ -27,7 +29,13 @@ public:
 	int width() const;
 	int height() const;
 
-	Entity* getEntityAt(Position)const;
+	
+	Entity*& getEntityAt(Position);
+	void swapEntities(Position, Position);
+
+	bool moveEntity(Entity*&, Position);
+
+	Position getPortalPosition() const;
 	
 
 	

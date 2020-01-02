@@ -1,10 +1,10 @@
 #include "DFS.h"
 
-vector<Position> DFS::findPath(const Labyrinth&)
+vector<Position> DFS::findPath(vector<vector<char>>&, Position start, Position finish)
 {
-	vector<Position> path;
+	
 
 	//DFS
 	
-	return path;
+	return {};
 }

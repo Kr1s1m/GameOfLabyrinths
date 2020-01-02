@@ -1,7 +1,7 @@
 #pragma once
 #include "Position.h"
-#include "Labyrinth.h"
 
+class Labyrinth;
 
 
 class Entity
@@ -27,7 +27,7 @@ public:
 	
 	virtual char getSymbol()const = 0;
 	virtual bool canMove()const = 0;
-	virtual void move(Labyrinth& labyrinth);
+	virtual void move(Labyrinth& labyrinth);;
 	
 };
 

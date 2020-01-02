@@ -7,7 +7,7 @@ private:
 
 	static int currentLevel;
 	static vector<vector<char>> levels;
-	static vector<Labyrinth> labyrinthInPlay;
+	static Labyrinth* labyrinthInPlay;
 	static vector<bool> levelStatus;
 	static bool playerWon;
 	static bool playerKilled;

@@ -14,8 +14,3 @@ bool Portal::canMove() const
 {
 	return false;
 }
-
-void Portal::move()
-{
-	
-}

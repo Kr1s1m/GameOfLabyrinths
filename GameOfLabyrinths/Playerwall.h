@@ -1,15 +1,15 @@
 #pragma once
 #include "Entity.h"
-
-class Wall : public Entity
+class Playerwall :
+	public Entity
 {
-public:
-
-	Wall(Position);
-
-	char getSymbol() const override;
-	bool canMove() const override;
+	public:
 	
+	Playerwall(Position);
+	
+	char getSymbol() const override;
+
+	bool canMove() const override;
 	
 };
 

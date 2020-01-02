@@ -23,7 +23,7 @@ public:
 	
 	Sorceress(Position);
 
-	void findPath(const Labyrinth&);
+	void findPath(vector<vector<char>>& symbols, Position, Position);
 	
 	bool isInsidePortal()const;
 	bool isDead()const;

@@ -1,4 +1,6 @@
 #pragma once
+#include <cmath>
+
 class Position
 {
 private:
@@ -17,6 +19,10 @@ public:
 	bool operator==(const Position&) const;
 
 	Position operator+(const Position&) const;
-	
+	bool outOfBounds(int, int) const;
+
+	long distanceFromOrigin() const;
+
+	bool operator<(const Position&) const;
 };
 

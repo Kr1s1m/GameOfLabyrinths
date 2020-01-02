@@ -15,7 +15,4 @@ bool Wall::canMove() const
 	return false;
 }
 
-void Wall::move()
-{
-	
-}
+

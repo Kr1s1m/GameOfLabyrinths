@@ -7,11 +7,8 @@ using namespace std;
 
 class Pathfinding
 {
-private:
-
-	map<Position, Position> parents;
-	
 public:
-	virtual vector<Position> findPath(const Labyrinth&) = 0;
+	
+	virtual vector<Position> findPath(vector<vector<char>>&, Position, Position) = 0;
 };
 

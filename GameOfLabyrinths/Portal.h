@@ -8,6 +8,5 @@ public:
 	
 	char getSymbol() const override;
 	bool canMove() const override;
-	void move() override;
 };
 

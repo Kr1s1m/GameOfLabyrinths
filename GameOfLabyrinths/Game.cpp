@@ -18,7 +18,8 @@ void Game::placeMonsters(vector<vector<char>>& symbols, int monsterCount)
 		int monsterX = rand() % symbolsHeight;
 		int monsterY = rand() % symbolsWidth;
 
-		while (symbols[monsterX][monsterX] == '#')
+		
+		while (symbols[monsterX][monsterY] != '.')
 		{
 			monsterX = rand() % symbolsHeight;
 			monsterY = rand() % symbolsWidth;
@@ -55,14 +56,14 @@ void Game::placeWalls(vector<vector<char>>& symbols, int monsterCount)
 	for (int i = 0; i < wallsToPlace; ++i)
 	{
 		int x, y;
-		cin >> x, y;
+		cin >> x >> y;
 
 		toBePlaced.push({ x ,y });
 	}
 
 	while (!toBePlaced.empty())
 	{
-		symbols[toBePlaced.front().getX()][toBePlaced.front().getY()] = '#';
+		symbols[toBePlaced.front().getX()][toBePlaced.front().getY()] = '$';
 		toBePlaced.pop();
 	}
 }

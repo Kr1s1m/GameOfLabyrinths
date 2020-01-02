@@ -1,24 +1,24 @@
 #pragma once
 #include "Entity.h"
-
-class Monster : public Entity
+class Composition : public Entity
 {
 private:
 	
-	bool playerHit;
+	Entity* first;
+	Entity* second;
 	
 public:
 
-	Monster(Position);
+	Composition(Position, Entity*, Entity*);
 
-	bool hasHitPlayer()const;
+
+	Entity* getFirst() const;
 	
+	Entity* getSecond() const;
+	
+
 	char getSymbol() const override;
 	bool canMove() const override;
 	void move(Labyrinth& labyrinth) override;
-
-	
-
-	
 };
 
