@@ -28,20 +28,23 @@ Entity* Labyrinth::createEntity(char symbol, Position position)
 void Labyrinth::fillEntities(vector<vector<char>>& symbols)
 {
 
-	
+	entities.resize(height);
+
+	for (auto& entityArray : entities)
+		entityArray.resize(width);
 
 	for(int i = 0; i < symbols.size(); ++i)
 	{
 		for(int j = 0; j < symbols[i].size(); ++j)
 		{
-			entities[i][j] = createEntity(i, j);
+			entities[i][j] = createEntity(symbols[i][j], {i, j});
 			
 		}
 	}
 
 }
 
-Labyrinth::Labyrinth(vector<vector<char>>& symbols, int _monsterCount) : monsterCount(_monsterCount)
+Labyrinth::Labyrinth(vector<vector<char>>& symbols, int _height, int _width) : height(_height), width(_width), playerInsidePortal(false), playerDead(false)
 {
 	fillEntities(symbols);
 }
@@ -59,14 +62,24 @@ vector<Entity*> Labyrinth::operator[](int index)
 
 }
 
-int Labyrinth::width() const
+int Labyrinth::getWidth() const
 {
-	return entities.begin()->size();
+	return width;
 }
 
-int Labyrinth::height() const
+int Labyrinth::getHeight() const
 {
-	return entities.size();
+	return height;
+}
+
+bool Labyrinth::isPlayerInsidePortal() const
+{
+	return playerInsidePortal;
+}
+
+bool Labyrinth::isPlayerDead() const
+{
+	return playerDead;
 }
 
 Entity*& Labyrinth::getEntityAt(Position position) 
@@ -76,7 +89,15 @@ Entity*& Labyrinth::getEntityAt(Position position)
 
 void Labyrinth::swapEntities(Position srcPos, Position destPos)
 {
-	swap(getEntityAt(srcPos), getEntityAt(destPos));
+	Entity*& srcEntity = getEntityAt(srcPos);
+	Entity*& destEntity = getEntityAt(destPos);
+
+	srcEntity->updatePosition(destPos);
+	destEntity->updatePosition(srcPos);
+	
+	swap(srcEntity, destEntity);
+
+	
 }
 
 bool Labyrinth::moveEntity(Entity*& entity, Position destinationPosition)
@@ -84,7 +105,30 @@ bool Labyrinth::moveEntity(Entity*& entity, Position destinationPosition)
 	Entity*& destEntity = getEntityAt(destinationPosition);
 	Position sourcePosition = entity->getPosition();
 	Entity*& sourceEntity = getEntityAt(sourcePosition);
+
+	if (entity->getSymbol() == 'S' || entity->getSymbol() == 'M')
+	{
+		if (destEntity->getSymbol() == '*')
+			playerDead = true;
+		
+		if (destEntity->getSymbol() == 'O')
+			playerInsidePortal = true;
+	}
+
+	if (entity->getSymbol() == '*')
+	{
+		if (destEntity->getSymbol() == 'S' || destEntity->getSymbol() == 'M')
+			playerDead = true;
+	}
+		
+
 	
+	
+	swapEntities(sourcePosition, destinationPosition);
+
+	return true;
+
+	/*
 	if (destEntity->getSymbol() == '.')
 	{
 		if (typeid(sourceEntity) == typeid(Composition))
@@ -102,8 +146,11 @@ bool Labyrinth::moveEntity(Entity*& entity, Position destinationPosition)
 		}
 			
 	}
+	
 	else
 	{
+
+		return false;
 
 		if (typeid(destEntity) == typeid(Composition))
 			return false;
@@ -136,6 +183,7 @@ bool Labyrinth::moveEntity(Entity*& entity, Position destinationPosition)
 	entity->updatePosition(destinationPosition);
 
 	return true;
+	*/
 	
 	
 }
@@ -152,6 +200,33 @@ Position Labyrinth::getPortalPosition() const
 		}
 		
 	}
+}
+
+void Labyrinth::tick()
+{
+	for (auto& entityArray : entities)
+	{
+		for (auto& entity : entityArray)
+		{
+			if (entity->canMove() && !entity->hasMoved())
+			{
+				entity->setMoved(true);
+				entity->move(*this);
+			}
+		}
+	}
+	
+	for (auto& entityArray : entities)
+	{
+		for (auto& entity : entityArray)
+		{
+			if (entity->canMove() && entity->hasMoved())
+			{
+				entity->setMoved(false);
+			}
+		}
+	}
+	
 }
 
 

@@ -4,7 +4,7 @@ class DFS : public Pathfinding
 {
 public:
 
-	vector<Position> findPath(vector<vector<char>>&, Position, Position) override;
+	stack<Position> findPath(const vector<vector<char>>&, Position, Position) override;
 	
 };
 

@@ -1,9 +1,10 @@
 #include "Sorceress.h"
 #include "BFS.h"
 #include "Empty.h"
+#include <iostream>
 
 
-Sorceress::Sorceress(Position _position) : Entity(_position), insidePortal(false), dead(false)
+Sorceress::Sorceress(Position _position) : Entity(_position), moved(false)
 {
 	
 }
@@ -18,15 +19,38 @@ bool Sorceress::canMove() const
 	return true;
 }
 
+bool Sorceress::hasMoved() const
+{
+	return moved;
+}
+
+void Sorceress::setMoved(bool _moved)
+{
+	moved = _moved;
+}
+
 void Sorceress::move(Labyrinth& labyrinth)
 {
-	if (nextStep == path.end()) 
+	if (path.empty())
 		return;
-		
+	
+	//Position oldPosition(getPosition());
 
-	Position oldPosition(getPosition());
+	Position newPosition(path.top());
 
-	Position newPosition(*nextStep);
+	path.pop();
+
+	Entity* thisEntity = reinterpret_cast<Entity*>(this);
+	
+	labyrinth.moveEntity(thisEntity, newPosition);
+	
+
+	//labyrinth.swapEntities(oldPosition, newPosition);
+
+	
+	
+
+	/*
 	
 	Entity* thisEntity = reinterpret_cast<Entity*>(this);
 
@@ -43,26 +67,26 @@ void Sorceress::move(Labyrinth& labyrinth)
 
 	++nextStep;
 
-
+	*/
 	
 }
 
-bool Sorceress::isInsidePortal() const
-{
-	return insidePortal;
-}
 
-bool Sorceress::isDead() const
-{
-	return dead;
-}
 
 void Sorceress::findPath(vector<vector<char>>& symbols, Position start, Position finish)
 {
-	Pathfinding* pathfinding;
-	BFS bfs;
 
-	pathfinding = &bfs;
+	BFS bfs;
+	Pathfinding* pathfinding = &bfs;
+	
+
+	
 
 	path = pathfinding->findPath(symbols, start, finish);
+}
+
+void Sorceress::setPath(stack<Position> _path)
+{
+	path = _path;
+	
 }

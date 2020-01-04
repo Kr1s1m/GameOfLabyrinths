@@ -27,7 +27,10 @@ public:
 	
 	virtual char getSymbol()const = 0;
 	virtual bool canMove()const = 0;
-	virtual void move(Labyrinth& labyrinth);;
+	virtual bool hasMoved()const;
+	virtual void setMoved(bool);
+	virtual void move(Labyrinth& labyrinth);
+	
 	
 };
 

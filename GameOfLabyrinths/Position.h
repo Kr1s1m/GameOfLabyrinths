@@ -12,6 +12,7 @@ public:
 	
 
 	Position(int = -1, int = -1);
+	Position(const Position&);
 
 	int getX() const;
 	int getY() const;

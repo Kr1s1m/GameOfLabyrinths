@@ -40,7 +40,18 @@ void Entity::swapWith(Entity* other)
 	
 }
 
+bool Entity::hasMoved() const
+{
+	return false;
+}
+
+void Entity::setMoved(bool _moved)
+{
+	
+}
+
 void Entity::move(Labyrinth& labyrinth)
 {
 }
+
 

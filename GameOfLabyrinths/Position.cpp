@@ -5,6 +5,11 @@ Position::Position(int _x, int _y) : x(_x), y(_y)
 	
 }
 
+Position::Position(const Position& other) : x(other.getX()), y(other.getY())
+{
+	
+}
+
 int Position::getX() const
 {
 	return x;
@@ -27,7 +32,7 @@ Position Position::operator+(const Position& other) const
 
 bool Position::outOfBounds(int height, int width) const
 {
-	return (x >= height || x < 0 || y >= height || y < 0);
+	return (x >= height || x < 0 || y >= width || y < 0);
 }
 
 long Position::distanceFromOrigin() const

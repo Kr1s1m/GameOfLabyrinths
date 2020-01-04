@@ -7,9 +7,9 @@ public:
 
 	
 	
-	vector<Position> findPath(vector<vector<char>>&, Position, Position) override;
-	vector<Position> makePath(map<Position, Position>&, Position);
-	
+	stack<Position> findPath(const vector<vector<char>>&, Position, Position) override;
+	stack<Position> makePath(const std::vector<std::vector<Position>>&, const Position&);
+
 	
 	
 };

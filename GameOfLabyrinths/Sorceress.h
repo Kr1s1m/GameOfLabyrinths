@@ -1,6 +1,7 @@
 #pragma once
 #include "Entity.h"
 #include <vector>
+#include <stack>
 
 class Labyrinth;
 using namespace std;
@@ -9,14 +10,10 @@ class Sorceress : public Entity
 {
 
 private:
-
-	vector<Position> path;
-	vector<Position>::iterator nextStep;
-
 	
-
-	bool insidePortal;
-	bool dead;
+	stack<Position> path;
+	bool moved;
+	
 	
 	
 public:
@@ -24,13 +21,17 @@ public:
 	Sorceress(Position);
 
 	void findPath(vector<vector<char>>& symbols, Position, Position);
+
+	void setPath(stack<Position>);
+
 	
-	bool isInsidePortal()const;
-	bool isDead()const;
 	
 	char getSymbol() const override;
 	bool canMove() const override;
+	bool hasMoved() const override;
+	void setMoved(bool) override;
 	void move(Labyrinth& labyrinth) override;
+	
 
 	
 

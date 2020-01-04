@@ -1,6 +1,6 @@
 #include "DFS.h"
 
-vector<Position> DFS::findPath(vector<vector<char>>&, Position start, Position finish)
+stack<Position> DFS::findPath(const vector<vector<char>>&, Position start, Position finish)
 {
 	
 

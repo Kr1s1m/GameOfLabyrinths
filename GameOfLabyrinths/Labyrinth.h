@@ -13,7 +13,12 @@ private:
 	vector< vector < Entity* > > entities;
 	
 	
-	int monsterCount;
+	int width;
+	int height;
+
+	bool playerInsidePortal;
+	bool playerDead;
+	
 
 
 	Entity* createEntity(char, Position);
@@ -22,12 +27,15 @@ private:
 
 public:
 	
-	Labyrinth(vector<vector<char>>&, int);
+	Labyrinth(vector<vector<char>>&, int, int);
 
 	vector<Entity*> operator[](int);
 
-	int width() const;
-	int height() const;
+	int getWidth() const;
+	int getHeight() const;
+
+	bool isPlayerInsidePortal() const;
+	bool isPlayerDead() const;
 
 	
 	Entity*& getEntityAt(Position);
@@ -36,6 +44,8 @@ public:
 	bool moveEntity(Entity*&, Position);
 
 	Position getPortalPosition() const;
+
+	void tick();
 	
 
 	

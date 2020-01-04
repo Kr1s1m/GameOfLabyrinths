@@ -1,43 +1,46 @@
 #include "BFS.h"
 #include <queue>
+#include <iostream>
 
-vector<Position> BFS::findPath(vector<vector<char>>& symbols, Position start, Position finish)
+stack<Position> BFS::findPath(const vector<vector<char>>& symbols, Position start, Position finish)
 {
 	
 	queue<Position> bfsQ;
 
-	vector<vector<bool>> visited;
+	const int symbolsHeight = symbols.size();
+	const int symbolsWidth = symbols.begin()->size();
 
-	map<Position, Position> parents;
+	vector<vector<bool>> visited(symbolsHeight);
+
+	vector<vector<int>> distance(symbolsHeight);
+
+	std::vector<std::vector<Position> > hasComeFrom(symbolsHeight);
 
 	Position direction[4] = { {-1, 0}, {0, +1}, {+1, 0}, {0, -1} };
 
-	int symbolsHeight = symbols.size();
-	int symbolsWidth = symbols.begin()->size();
-
-	visited.resize(symbolsHeight);
-
-	for (auto& boolArray : visited)
-		boolArray.resize(symbolsWidth, false);
-
+	for(size_t row = 0; row < symbolsHeight; row++)
+	{
+		visited[row].resize(symbolsWidth, false);
+		distance[row].resize(symbolsWidth, symbolsWidth * symbolsHeight);
+		hasComeFrom[row].resize(symbolsWidth);
+	}
+	
 	if (start.outOfBounds(symbolsHeight, symbolsWidth))
 		return { };
 
 	bfsQ.push(start);
 	visited[start.getX()][start.getY()] = true;
-	parents[start] = Position(-10, -10);
-	
-	
+	distance[start.getX()][start.getY()] = 0;
+	hasComeFrom[start.getX()][start.getY()] = Position(-10, -10);
 
 	while(!bfsQ.empty())
 	{
 		Position currPosition = bfsQ.front();
 		bfsQ.pop();
-		visited[currPosition.getX()][currPosition.getY()] = true;
-
+	
 		if(currPosition == finish)
 		{
-			return makePath(parents, currPosition);
+			return makePath(hasComeFrom, currPosition);
 		}
 		
 		for(Position dir : direction)
@@ -56,26 +59,31 @@ vector<Position> BFS::findPath(vector<vector<char>>& symbols, Position start, Po
 			if (symbols[newPosition.getX()][newPosition.getY()] == '$')
 				continue;
 
-			parents[newPosition] = currPosition;
-			bfsQ.push(newPosition);
-		}
+			if (distance[newPosition.getX()][newPosition.getY()] < distance[currPosition.getX()][currPosition.getY()] + 1)
+				continue;
 
-		
+			hasComeFrom[newPosition.getX()][newPosition.getY()] = currPosition;
+			
+			visited[currPosition.getX()][currPosition.getY()] = true;
+			distance[newPosition.getX()][newPosition.getY()] = distance[currPosition.getX()][currPosition.getY()] + 1;
+			bfsQ.push(newPosition);
+			
+		}
 	}
 	
 	return {};
 }
 
-vector<Position> BFS::makePath(map<Position, Position>& parents, Position finish)
+stack<Position> BFS::makePath(const std::vector<std::vector<Position>>& parents, const Position& finish)
 {
-	vector<Position> path;
-	Position pos = parents[finish];
+	stack<Position> path;
+	Position pos = finish;
 
-	while(pos.getX() != -10 && pos.getY() != -10)
+	while (pos.getX() != -10 && pos.getY() != -10)
 	{
-		path.push_back(pos);
-		pos = parents[pos];
-		
+		path.push(pos);
+		pos = parents[pos.getX()][pos.getY()];
+
 	}
 
 	return path;
