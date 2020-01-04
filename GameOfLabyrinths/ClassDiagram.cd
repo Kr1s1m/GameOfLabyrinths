@@ -1,109 +1,116 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="BFS" Collapsed="true">
-    <Position X="0.5" Y="4.75" Width="1.5" />
+    <Position X="5.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>BFS.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Composition" Collapsed="true">
-    <Position X="12.5" Y="1.75" Width="1.5" />
+    <Position X="0.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAggAAAAAAgCACAAgEAAAAAAAAAAAABAAAAAAAAAAA=</HashCode>
       <FileName>Composition.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="DFS" Collapsed="true">
-    <Position X="2.75" Y="4.75" Width="1.5" />
+    <Position X="8.75" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAEAAAAAAAAAgAAgAAAAAAAAAAAAAAA=</HashCode>
       <FileName>DFS.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Empty" Collapsed="true">
-    <Position X="5.75" Y="1.75" Width="1.5" />
+    <Position X="2.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAgAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Empty.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Entity" Collapsed="true">
-    <Position X="9" Y="0.5" Width="1.5" />
+    <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>EAAAoAAAAAAgAACAAAAAIAAgACAAACAAAAAgAAAAAAA=</HashCode>
+      <HashCode>EAAAoAAAAAAgAACAAAABIAAgACAAACAAAAAgAAAIAAA=</HashCode>
       <FileName>Entity.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Game" Collapsed="true">
-    <Position X="19.5" Y="0.5" Width="1.5" />
+    <Position X="13.75" Y="6" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAACEACAAAFgAAABAEAAA=</HashCode>
+      <HashCode>gAEEABCQAAAEEAAJAAAAAGQAAAGAAAAEFiAAARAAAAA=</HashCode>
       <FileName>Game.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Labyrinth" Collapsed="true">
-    <Position X="21.25" Y="0.5" Width="1.5" />
+    <Position X="13.75" Y="4" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAEAAAAAAAAEAAQIQAEAAAAIIAEAAYAAAAAAAAAAAAA=</HashCode>
+      <HashCode>RAFAAAAAAAAEAAQAQAEAAAAIIAEAQZBAAAABAIAAAAA=</HashCode>
       <FileName>Labyrinth.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Mage" Collapsed="true">
-    <Position X="1.25" Y="1.75" Width="1.5" />
+    <Position X="7" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgAIAAAAgAACAAAADAAAAgAAAAAAAAAAAAAIoAAA=</HashCode>
       <FileName>Mage.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Monster" Collapsed="true">
-    <Position X="3.5" Y="1.75" Width="1.5" />
+    <Position X="4.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAgAAAAAAgAACACAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgAAAAAAgAACAAAABAAAAAAAAAAAAAgAAAAAoAAA=</HashCode>
       <FileName>Monster.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Pathfinding" Collapsed="true">
-    <Position X="1.75" Y="3.5" Width="1.5" />
+    <Position X="7.25" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Pathfinding.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Playerwall" Collapsed="true">
-    <Position X="8" Y="1.75" Width="1.5" />
+    <Position X="9.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgQAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Playerwall.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Portal" Collapsed="true">
-    <Position X="10.25" Y="1.75" Width="1.5" />
+    <Position X="11.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAABAAA=</HashCode>
       <FileName>Portal.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Position" Collapsed="true">
-    <Position X="19.5" Y="1.5" Width="1.5" />
+    <Position X="0.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAAAAAAAAAAAAAAgAAAAAQABAAAAAAAAAABgAGAAAAA=</HashCode>
       <FileName>Position.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Sorceress" Collapsed="true">
-    <Position X="14.75" Y="1.75" Width="1.5" />
+    <Position X="13.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIAgAAAAABwAACAAAACAAAAgFAAAAAIAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAgAIAAAAwAACAAAADAAAAgAAAAAAAAAAAAAAoAAA=</HashCode>
       <FileName>Sorceress.h</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Wall" Collapsed="true">
-    <Position X="17" Y="1.75" Width="1.5" />
+    <Position X="16.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAgAAAAAAgAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAA=</HashCode>
       <FileName>Wall.h</FileName>
     </TypeIdentifier>
   </Class>
+  <Struct Name="Level" Collapsed="true">
+    <Position X="13.75" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAEAAAAAAAAAIAgAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Game.h</FileName>
+    </TypeIdentifier>
+  </Struct>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

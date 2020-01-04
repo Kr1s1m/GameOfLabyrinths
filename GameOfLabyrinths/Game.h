@@ -1,14 +1,14 @@
 #pragma once
 #include "Labyrinth.h"
 
-/*
+
 struct Level
 {
 	vector<vector<char>> symbols;
 	pair<int, int> dimensions;
 	int monsterCount;
 };
-*/
+
 class Game
 {
 private:
@@ -18,15 +18,12 @@ private:
 	static char playerClass;
 	static int levelCount;
 
-	
-	static vector<vector<vector<char>>> levels;
-	static vector<int> monsterCounts;
-	static vector<pair<int, int>> levelDimensions;
-	
+	static vector<Level> levels;
+
 	static Labyrinth* labyrinthInPlay;
 	
-	static bool isValidLevel(const vector<vector<char>>&, Position, Position, int);
-	static bool isValidMonsterCount(const vector<vector<char>>&, int);
+	static bool isValidLevel(const Level&);
+	static bool isValidMonsterCount(const Level&);
 	
 	static void printMainMenu();
 	
@@ -34,11 +31,11 @@ private:
 	static void loadLevelData( string );
 	static void filterData();
 	
-	static void placeMonsters(vector<vector<char>>&, int);
-	static void placeWalls(vector<vector<char>>&,Position,Position, int);
+	static void placeMonsters(Level&);
+	static void placeWalls(Level&);
 	
-	static Position placePortal(vector<vector<char>>&);
-	static Position placePlayer(vector<vector<char>>&);
+	static Position placePortal(Level&);
+	static Position placePlayer(Level&);
 	
 	static void initializeCurrentLevel();
 	static void playCurrentLevel();

@@ -12,9 +12,7 @@ string Game::loadFileName = "labyrinths.txt";
 int Game::currentLevel = 0;
 int Game::levelCount = 0;
 char Game::playerClass = ' ';
-vector<vector<vector<char>>>  Game::levels = { };
-vector<int> Game::monsterCounts = { };
-vector<pair<int, int>> Game::levelDimensions = { };
+vector<Level> Game::levels = { };
 Labyrinth* Game::labyrinthInPlay = nullptr;
 
 
@@ -107,10 +105,15 @@ void Game::loadLevelData(string fileName)
 		iFile >> monsterCount;
 
 		pair<int, int> dimension = make_pair(height, width);
+
+		Level newLevel{ symbolMatrix, dimension, monsterCount };
+		levels.push_back(newLevel);
 		
+		/*
 		levels.push_back(symbolMatrix);
 		levelDimensions.push_back(dimension);
 		monsterCounts.push_back(monsterCount);
+		*/
 		
 		levelCount++;
 		
@@ -119,22 +122,24 @@ void Game::loadLevelData(string fileName)
 	
 }
 
-bool Game::isValidLevel(const vector<vector<char>>& symbolMatrix, Position start, Position finish, int monsterCount)
+bool Game::isValidLevel(const Level& level)
 {
+	Position start = { 0, 0 };
+	Position finish = { level.dimensions.first - 1, level.dimensions.second - 1 };
 	
-	if (symbolMatrix.empty())
+	if (level.symbols.empty())
 		return false;
 	
-	if (symbolMatrix[start.getX()][start.getY()] != '.')
+	if (level.symbols[start.getX()][start.getY()] != '.')
 		return false;
 
-	if (symbolMatrix[finish.getX()][finish.getY()] != '.')
+	if (level.symbols[finish.getX()][finish.getY()] != '.')
 		return false;
 
-	if (!isValidMonsterCount(symbolMatrix, monsterCount))
+	if (!isValidMonsterCount(level))
 		return false;
 
-	for (auto& symbolArray : symbolMatrix)
+	for (auto& symbolArray : level.symbols)
 		for (auto& symbol : symbolArray)
 			if (symbol != '.' && symbol != '#')
 				return false;
@@ -142,28 +147,29 @@ bool Game::isValidLevel(const vector<vector<char>>& symbolMatrix, Position start
 	BFS bfs;
 	Pathfinding* pathfinding = &bfs;
 	
-	if(pathfinding->findPath(symbolMatrix, start, finish).empty())
+	if(pathfinding->findPath(level.symbols, start, finish).empty())
 		return false;
 
 	return true;
 }
 
-bool Game::isValidMonsterCount(const vector<vector<char>>& symbolMatrix, int monsterCount)
+bool Game::isValidMonsterCount(const Level& level)
 {
 	int freeSpaceCount = 0;
 	
-	for (auto& symbolArray : symbolMatrix)
+	for (auto& symbolArray : level.symbols)
 		for (auto& symbol : symbolArray)
 			if (symbol == '.')
 				++freeSpaceCount;
 
-	return (monsterCount < freeSpaceCount - 1 && monsterCount >= 0);
+	return (level.monsterCount < freeSpaceCount - 1 && level.monsterCount >= 0);
 }
 
 
 
 void Game::filterData()
 {
+	/*
 	for(int i = 0; i < levels.size(); i++)
 	{
 		if(!isValidLevel(levels[i],{0,0},{levelDimensions[i].first - 1, levelDimensions[i].second - 1}, monsterCounts[i]))
@@ -173,15 +179,26 @@ void Game::filterData()
 			monsterCounts.erase(monsterCounts.begin() + i);
 		}
 	}
+	*/
+
+	levels.erase(remove_if(levels.begin(), levels.end(), [](const Level& lvl)
+	{
+		
+			return !isValidLevel(lvl);
+		
+	}), levels.end());
 
 	levelCount = levels.size();
 
-	/*
-	std::sort(levels.begin(), levels.end(), [](const vector<vector<char>>& left, const vector<vector<char>>& right)
+	
+	std::sort(levels.begin(), levels.end(), [](const Level& left, const Level& right)
 	{
-		
+			if (left.dimensions != right.dimensions)
+				return (left.dimensions.first * left.dimensions.second < right.dimensions.first * right.dimensions.second);
+			else
+				return (left.monsterCount < right.monsterCount);
 	});
-	*/
+	
 	
 	if (levels.empty())
 	{
@@ -200,50 +217,53 @@ void Game::printMainMenu()
 	system("cls");
 }
 
-void Game::placeMonsters(vector<vector<char>>& symbols, int monsterCount)
+void Game::placeMonsters(Level& level)
 {
-	if (monsterCount == 0)
+	if (level.monsterCount == 0)
 		return;
 	
-	int symbolsHeight = symbols.size() - 1;
-	int symbolsWidth = symbols.begin()->size() - 1;
+	int symbolsHeight = level.symbols.size() - 1;
+	int symbolsWidth = level.symbols.begin()->size() - 1;
 
 	srand(time(nullptr));
 
-	for (int i = 0; i < monsterCount; ++i)
+	for (int i = 0; i < level.monsterCount; ++i)
 	{
 
 		int monsterX = rand() % symbolsHeight;
 		int monsterY = rand() % symbolsWidth;
 
 		
-		while (symbols[monsterX][monsterY] != '.')
+		while (level.symbols[monsterX][monsterY] != '.')
 		{
 			monsterX = rand() % symbolsHeight;
 			monsterY = rand() % symbolsWidth;
 		}
 
-		symbols[monsterX][monsterY] = '*';
+		level.symbols[monsterX][monsterY] = '*';
 
 	}
 }
 
-void Game::placeWalls(vector<vector<char>>& symbols, Position start, Position finish, int monsterCount)
+void Game::placeWalls(Level& level)
 {
+	Position start = { 0, 0 };
+	Position finish = { level.dimensions.first - 1, level.dimensions.second - 1 };
+	
 	int emptySpace = 0;
 
-	for (auto& symbolArray : symbols)
+	for (auto& symbolArray : level.symbols)
 		for (auto& symbol : symbolArray)
 			if (symbol == '.')
 				++emptySpace;
 
 
-	int maxWallsToPlace = emptySpace - monsterCount - 2;
+	int maxWallsToPlace = emptySpace - level.monsterCount - 2;
 	int wallsToPlace;
 
 	system("cls");
 	
-	for (auto& symbolArray : symbols)
+	for (auto& symbolArray : level.symbols)
 	{
 		for (auto& symbol : symbolArray)
 		{
@@ -261,7 +281,8 @@ void Game::placeWalls(vector<vector<char>>& symbols, Position start, Position fi
 		cin >> wallsToPlace;
 	} while (wallsToPlace < 0 && wallsToPlace > maxWallsToPlace);
 
-	
+	if (wallsToPlace == 0)
+		return;
 
 	BFS bfs;
 	Pathfinding* pathfinding = &bfs;
@@ -272,14 +293,14 @@ void Game::placeWalls(vector<vector<char>>& symbols, Position start, Position fi
 
 	do {
 
-		for (auto& symbolArray : symbols)
+		for (auto& symbolArray : level.symbols)
 			for (auto& symbol : symbolArray)
 				if (symbol == '$')
 					symbol = '.';
 
 		system("cls");
 
-		for (auto& symbolArray : symbols)
+		for (auto& symbolArray : level.symbols)
 		{
 			for (auto& symbol : symbolArray)
 			{
@@ -300,7 +321,7 @@ void Game::placeWalls(vector<vector<char>>& symbols, Position start, Position fi
 			{
 				cout << "Enter valid position to wall (" << i + 1 << "):\n";
 				cin >> x >> y;
-			} while (x < 0 || y < 0 || x >= symbols.size() || y >= symbols.begin()->size() || symbols[x][y] != '.');
+			} while (x < 0 || y < 0 || x >= level.dimensions.first || y >= level.dimensions.second || level.symbols[x][y] != '.');
 			
 
 			toBePlaced.push({ x ,y });
@@ -308,31 +329,32 @@ void Game::placeWalls(vector<vector<char>>& symbols, Position start, Position fi
 
 		while (!toBePlaced.empty())
 		{
-			symbols[toBePlaced.front().getX()][toBePlaced.front().getY()] = '$';
+			level.symbols[toBePlaced.front().getX()][toBePlaced.front().getY()] = '$';
 			toBePlaced.pop();
 		}
 		
-	} while (pathfinding->findPath(symbols, start, finish).empty());
+	} while (pathfinding->findPath(level.symbols, start, finish).empty());
 
 	cout << "Walls placed. Press any key to start your level.\n";
 	system("pause");
 	
 }
 
-Position Game::placePortal(vector<vector<char>>& symbols)
+Position Game::placePortal(Level& level)
 {
-	int portalX = symbols.size() - 1;
-	int portalY = symbols.begin()->size() - 1;
+	int portalX = level.dimensions.first - 1;
+	int portalY = level.dimensions.second - 1;
 	
-	symbols[portalX][portalY] = 'O';
+	
+	level.symbols[portalX][portalY] = 'O';
 
 	return { portalX , portalY };
 	
 }
 
-Position Game::placePlayer(vector<vector<char>>& symbols)
+Position Game::placePlayer(Level& level)
 {
-	symbols[0][0] = playerClass;
+	level.symbols[0][0] = playerClass;
 	
 	return { 0, 0 };
 }
@@ -345,11 +367,11 @@ void Game::initializeCurrentLevel()
 	Position playerPosition = placePlayer(levels[currentLevel]);
 	Position portalPosition = placePortal(levels[currentLevel]);
 	
-	placeWalls(levels[currentLevel], playerPosition, portalPosition, monsterCounts[currentLevel]);
+	placeWalls(levels[currentLevel]);
 
-	placeMonsters(levels[currentLevel], monsterCounts[currentLevel]);
+	placeMonsters(levels[currentLevel]);
 	
-	labyrinthInPlay = new Labyrinth(levels[currentLevel], levelDimensions[currentLevel].first, levelDimensions[currentLevel].second);
+	labyrinthInPlay = new Labyrinth(levels[currentLevel].symbols, levels[currentLevel].dimensions.first, levels[currentLevel].dimensions.second);
 	
 }
 

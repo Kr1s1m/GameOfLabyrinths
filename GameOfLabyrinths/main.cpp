@@ -8,9 +8,7 @@
 int main()
 {
 
-
 	Game::play();
-	
 	
 	
 
