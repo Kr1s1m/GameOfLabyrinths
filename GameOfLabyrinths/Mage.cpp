@@ -1,9 +1,9 @@
 #include "Mage.h"
 #include "DFS.h"
 
-Mage::Mage(Position _position) : Entity(_position)
+Mage::Mage(Position _position, const vector<vector<char>>& symbols) : Entity(_position), moved(false)
 {
-
+	findPath(symbols, _position, findPortal(symbols));
 }
 
 char Mage::getSymbol() const
@@ -14,6 +14,16 @@ char Mage::getSymbol() const
 bool Mage::canMove() const
 {
 	return true;
+}
+
+bool Mage::hasMoved() const
+{
+	return moved;
+}
+
+void Mage::setMoved(bool _moved)
+{
+	moved = _moved;
 }
 
 void Mage::move(Labyrinth& labyrinth)
@@ -52,20 +62,22 @@ void Mage::move(Labyrinth& labyrinth)
 }
 
 
-void Mage::findPath(vector<vector<char>>& symbols, Position start, Position finish)
+void Mage::findPath(const vector<vector<char>>& symbols, Position start, Position finish)
 {
 
 	DFS dfs;
 	Pathfinding* pathfinding = &dfs;
 
-
-
-
 	path = pathfinding->findPath(symbols, start, finish);
 }
 
-void Mage::setPath(stack<Position>& _path)
+Position Mage::findPortal(const vector<vector<char>>& symbols) const
 {
-	path = _path;
+	for (int i = 0; i < symbols.size(); ++i)
+		for (int j = 0; j < symbols[i].size(); j++)
+			if (symbols[i][j] == 'O')
+				return { i, j };
 
+	return getPosition();
 }
+

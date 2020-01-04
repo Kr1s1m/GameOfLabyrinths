@@ -8,7 +8,7 @@ public:
 	
 	
 	stack<Position> findPath(const vector<vector<char>>&, Position, Position) override;
-	stack<Position> makePath(const std::vector<std::vector<Position>>&, const Position&);
+	stack<Position> makePath(const vector<vector<Position>>&, const Position&);
 
 	
 	

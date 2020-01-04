@@ -8,18 +8,21 @@
 #include "Portal.h"
 #include "Playerwall.h"
 #include "Composition.h"
+#include "Mage.h"
 
-Entity* Labyrinth::createEntity(char symbol, Position position)
+Entity* Labyrinth::createEntity(char symbol, Position position, const vector<vector<char>>& symbols)
 {
 	if(symbol == '#')
 		return new Wall(position);
-	else if (symbol == 'S')
-		return new Sorceress(position);
-	else if (symbol == '*')
+	if (symbol == 'S')
+		return new Sorceress(position, symbols);
+	if (symbol == 'M')
+		return new Mage(position, symbols);
+	if (symbol == '*')
 		return new Monster(position);
-	else if (symbol == 'O')
+	if (symbol == 'O')
 		return new Portal(position);
-	else if(symbol == '$')
+	if (symbol == '$')
 		return new Playerwall(position);
 
 	return new Empty(position);
@@ -37,7 +40,7 @@ void Labyrinth::fillEntities(vector<vector<char>>& symbols)
 	{
 		for(int j = 0; j < symbols[i].size(); ++j)
 		{
-			entities[i][j] = createEntity(symbols[i][j], {i, j});
+			entities[i][j] = createEntity(symbols[i][j], {i, j}, symbols);
 			
 		}
 	}

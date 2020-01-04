@@ -5,16 +5,22 @@
 stack<Position> BFS::findPath(const vector<vector<char>>& symbols, Position start, Position finish)
 {
 	
+	if (start == finish)
+		return { };
+
+	int symbolsHeight = symbols.size();
+	int symbolsWidth = symbols.begin()->size();
+
+	if (start.outOfBounds(symbolsHeight, symbolsWidth))
+		return { };
+
 	queue<Position> bfsQ;
-
-	const int symbolsHeight = symbols.size();
-	const int symbolsWidth = symbols.begin()->size();
-
+	
 	vector<vector<bool>> visited(symbolsHeight);
 
 	vector<vector<int>> distance(symbolsHeight);
 
-	std::vector<std::vector<Position> > hasComeFrom(symbolsHeight);
+	vector<vector<Position> > hasComeFrom(symbolsHeight);
 
 	Position direction[4] = { {-1, 0}, {0, +1}, {+1, 0}, {0, -1} };
 
@@ -25,8 +31,7 @@ stack<Position> BFS::findPath(const vector<vector<char>>& symbols, Position star
 		hasComeFrom[row].resize(symbolsWidth);
 	}
 	
-	if (start.outOfBounds(symbolsHeight, symbolsWidth))
-		return { };
+	
 
 	bfsQ.push(start);
 	visited[start.getX()][start.getY()] = true;

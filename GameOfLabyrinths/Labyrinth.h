@@ -21,7 +21,7 @@ private:
 	
 
 
-	Entity* createEntity(char, Position);
+	Entity* createEntity(char, Position, const vector<vector<char>>&);
 	void fillEntities(vector<vector<char>>&);
 	
 

@@ -7,21 +7,23 @@ using namespace std;
 
 class Mage : public Entity
 {
+
+private:
+	
 	std::stack<Position> path;
-
-
-
+	bool moved;
 
 public:
 
-	Mage(Position);
+	Mage(Position, const vector<vector<char>>&);
 
-	void findPath(vector<vector<char>>& symbols, Position, Position);
-
-	void setPath(stack<Position>&);
-
+	void findPath(const vector<vector<char>>& symbols, Position, Position);
+	Position findPortal(const vector<vector<char>>& symbols)const;
+	
 	char getSymbol() const override;
 	bool canMove() const override;
+	bool hasMoved() const override;
+	void setMoved(bool) override;
 	void move(Labyrinth& labyrinth) override;
 	
 };

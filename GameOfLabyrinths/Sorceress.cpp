@@ -4,9 +4,9 @@
 #include <iostream>
 
 
-Sorceress::Sorceress(Position _position) : Entity(_position), moved(false)
+Sorceress::Sorceress(Position _position, const vector<vector<char>>& symbols) : Entity(_position), moved(false)
 {
-	
+	findPath(symbols, _position, findPortal(symbols));
 }
 
 char Sorceress::getSymbol() const
@@ -73,7 +73,7 @@ void Sorceress::move(Labyrinth& labyrinth)
 
 
 
-void Sorceress::findPath(vector<vector<char>>& symbols, Position start, Position finish)
+void Sorceress::findPath(const vector<vector<char>>& symbols, Position start, Position finish)
 {
 
 	BFS bfs;
@@ -85,8 +85,13 @@ void Sorceress::findPath(vector<vector<char>>& symbols, Position start, Position
 	path = pathfinding->findPath(symbols, start, finish);
 }
 
-void Sorceress::setPath(stack<Position> _path)
+
+Position Sorceress::findPortal(const vector<vector<char>>& symbols) const
 {
-	path = _path;
-	
+	for (int i = 0; i < symbols.size(); ++i)
+		for (int j = 0; j < symbols[i].size(); j++)
+			if (symbols[i][j] == 'O')
+				return { i, j };
+
+	return getPosition();
 }
