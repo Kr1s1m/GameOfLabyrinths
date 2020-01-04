@@ -85,10 +85,6 @@ void Game::loadLevelData(string fileName)
 		if (height < 0 || width < 0)
 			break;
 
-		//symbolMatrix.resize(height);
-
-		//for (auto& symbolArray : symbolMatrix)
-			//symbolArray.resize(width);
 
 		for(int i = 0; i < height; i++)
 		{
@@ -179,6 +175,13 @@ void Game::filterData()
 	}
 
 	levelCount = levels.size();
+
+	/*
+	std::sort(levels.begin(), levels.end(), [](const vector<vector<char>>& left, const vector<vector<char>>& right)
+	{
+		
+	});
+	*/
 	
 	if (levels.empty())
 	{

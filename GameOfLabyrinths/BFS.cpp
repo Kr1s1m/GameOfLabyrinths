@@ -45,7 +45,7 @@ stack<Position> BFS::findPath(const vector<vector<char>>& symbols, Position star
 	
 		if(currPosition == finish)
 		{
-			return makePath(hasComeFrom, currPosition);
+			return makePath(hasComeFrom, start, currPosition);
 		}
 		
 		for(Position dir : direction)
@@ -79,12 +79,12 @@ stack<Position> BFS::findPath(const vector<vector<char>>& symbols, Position star
 	return {};
 }
 
-stack<Position> BFS::makePath(const std::vector<std::vector<Position>>& parents, const Position& finish)
+stack<Position> BFS::makePath(const std::vector<std::vector<Position>>& parents, const Position& start, const Position& finish)
 {
 	stack<Position> path;
 	Position pos = finish;
 
-	while (pos.getX() != -10 && pos.getY() != -10)
+	while (!(pos == start))//(pos.getX() != -10 && pos.getY() != -10)
 	{
 		path.push(pos);
 		pos = parents[pos.getX()][pos.getY()];

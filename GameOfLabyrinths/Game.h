@@ -1,6 +1,14 @@
 #pragma once
 #include "Labyrinth.h"
 
+/*
+struct Level
+{
+	vector<vector<char>> symbols;
+	pair<int, int> dimensions;
+	int monsterCount;
+};
+*/
 class Game
 {
 private:
@@ -9,6 +17,7 @@ private:
 	static int currentLevel;
 	static char playerClass;
 	static int levelCount;
+
 	
 	static vector<vector<vector<char>>> levels;
 	static vector<int> monsterCounts;

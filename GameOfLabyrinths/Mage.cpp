@@ -31,13 +31,13 @@ void Mage::move(Labyrinth& labyrinth)
 	if (path.empty())
 		return;
 
-	Position oldPosition(getPosition());
-
 	Position newPosition(path.top());
 
-	labyrinth.swapEntities(oldPosition, newPosition);
-
 	path.pop();
+
+	Entity* thisEntity = reinterpret_cast<Entity*>(this);
+
+	labyrinth.moveEntity(thisEntity, newPosition);
 
 
 	/*

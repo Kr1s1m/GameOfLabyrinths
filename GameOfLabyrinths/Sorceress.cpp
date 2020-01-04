@@ -34,7 +34,7 @@ void Sorceress::move(Labyrinth& labyrinth)
 	if (path.empty())
 		return;
 	
-	//Position oldPosition(getPosition());
+	
 
 	Position newPosition(path.top());
 
@@ -44,8 +44,6 @@ void Sorceress::move(Labyrinth& labyrinth)
 	
 	labyrinth.moveEntity(thisEntity, newPosition);
 	
-
-	//labyrinth.swapEntities(oldPosition, newPosition);
 
 	
 	
