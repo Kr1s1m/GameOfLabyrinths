@@ -109,12 +109,6 @@ void Game::loadLevelData(string fileName)
 		Level newLevel{ symbolMatrix, dimension, monsterCount };
 		levels.push_back(newLevel);
 		
-		/*
-		levels.push_back(symbolMatrix);
-		levelDimensions.push_back(dimension);
-		monsterCounts.push_back(monsterCount);
-		*/
-		
 		levelCount++;
 		
 		
@@ -169,17 +163,6 @@ bool Game::isValidMonsterCount(const Level& level)
 
 void Game::filterData()
 {
-	/*
-	for(int i = 0; i < levels.size(); i++)
-	{
-		if(!isValidLevel(levels[i],{0,0},{levelDimensions[i].first - 1, levelDimensions[i].second - 1}, monsterCounts[i]))
-		{
-			levels.erase(levels.begin() + i);
-			levelDimensions.erase(levelDimensions.begin() + i);
-			monsterCounts.erase(monsterCounts.begin() + i);
-		}
-	}
-	*/
 
 	levels.erase(remove_if(levels.begin(), levels.end(), [](const Level& lvl)
 	{
@@ -225,7 +208,7 @@ void Game::placeMonsters(Level& level)
 	int symbolsHeight = level.symbols.size() - 1;
 	int symbolsWidth = level.symbols.begin()->size() - 1;
 
-	srand(time(nullptr));
+	srand(time(NULL));
 
 	for (int i = 0; i < level.monsterCount; ++i)
 	{
